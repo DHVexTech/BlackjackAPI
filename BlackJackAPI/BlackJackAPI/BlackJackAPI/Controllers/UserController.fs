@@ -7,7 +7,7 @@ open BlackJackAPI.Models
 
 [<ApiController>]
 [<Route("User")>]
-type WeatherForecastController (logger : ILogger<WeatherForecastController>) =
+type UserController (logger : ILogger<UserController>) =
     inherit ControllerBase()
 
     let summaries = [| "Freezing"; "Bracing"; "Chilly"; "Cool"; "Mild"; "Warm"; "Balmy"; "Hot"; "Sweltering"; "Scorching" |]
