@@ -5,8 +5,8 @@ open BlackJackAPI.Enums
 
 type Card =
     {
-        Name: CardsNames
-        Symbols: CardsSymbols
-        firstValue: int
-        secondValue: int
+        Name: string
+        Symbol: string
+        FirstValue: int
+        SecondValue: int
     }
