@@ -39,31 +39,52 @@ module CardService =
 
     let Shuffle (cards : Card[]) : Card[] = 
         let rnd = Random()
-        let cutNumber = rnd.Next(1000, 2000)
+        let cutNumber = 50
 
         let rec CutDeck' (cutCount : int, cutLimit : int, cards : Card[]) : Card[] =
             let resizedDeck = ResizeArray()
+            let cutIndex = rnd.Next(1, cards.Length-1)
+            let firstPartDeck = cards.[0..cutIndex-1]
+            let secondPartDeck = cards.[cutIndex..(cards.Length-1)]
+
+            let rec loopingDeck' = fun (countCard : int, deck : Card[]) ->
+                match deck.[countCard] with
+                | value when countCard+1 < deck.Length -> 
+                    resizedDeck.Add(value)
+                    loopingDeck' (countCard+1, deck)
+                | value when countCard < deck.Length ->
+                    resizedDeck.Add(value)
+                | _ -> ()
             
-            let firsPartDeck = cards.[0..((cards.Length / 2)-1)]
-            let secondPartDeck = cards.[((cards.Length/2))..(cards.Length-1)]
 
-            let rec loopingDeck' = fun (countCard : int, firstDeck : Card[], secondDeck : Card[]) ->
-                match (secondDeck.[countCard], firstDeck.[countCard]) with
-                | second, first when (countCard+1) < firstDeck.Length ->
-                    resizedDeck.Add(second)
-                    resizedDeck.Add(first)
-                    loopingDeck' (countCard+1, firstDeck, secondDeck)
-                | second, first when countCard < firstDeck.Length -> 
-                    resizedDeck.Add(second)
-                    resizedDeck.Add(first)
-                | _ , _ -> ()
 
-            loopingDeck' (0, firsPartDeck, secondPartDeck)
+            loopingDeck' (0, secondPartDeck)
+            loopingDeck' (0, firstPartDeck)
             
             let deckShuffle = resizedDeck.ToArray()
+            let doubleShuffledDeck = ResizeArray()
+
+            let firsPartDeck = deckShuffle.[0..((cards.Length / 2)-1)]
+            let secondPartDeck = deckShuffle.[((cards.Length/2))..(cards.Length-1)]
+
+            let rec loopingDeckSecond' = fun (countCard : int, firstDeck : Card[], secondDeck : Card[]) ->
+                match (secondDeck.[countCard], firstDeck.[countCard]) with
+                | second, first when (countCard+1) < firstDeck.Length ->
+                    doubleShuffledDeck.Add(second)
+                    doubleShuffledDeck.Add(first)
+                    loopingDeckSecond' (countCard+1, firstDeck, secondDeck)
+                | second, first when countCard < firstDeck.Length -> 
+                    doubleShuffledDeck.Add(second)
+                    doubleShuffledDeck.Add(first)
+                | _ , _ -> ()
+
+            loopingDeckSecond' (0, firsPartDeck, secondPartDeck)
+
+            let deckDoubleShuffled = doubleShuffledDeck.ToArray()
+
             match cutCount with
-            | _ when cutCount < cutLimit -> CutDeck' (cutCount+1, cutLimit, deckShuffle)
-            | _ -> deckShuffle
+            | _ when cutCount < cutLimit -> CutDeck' (cutCount+1, cutLimit, deckDoubleShuffled)
+            | _ -> deckDoubleShuffled
             
         CutDeck' (0, cutNumber, cards)
 

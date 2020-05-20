@@ -17,12 +17,8 @@ type CardController (logger : ILogger<CardController>) =
     member __.Get() : Card[] =
         CardService.CreateDeck
 
-    [<HttpPost("shuffle")>]
-    member __.Shuffle(body : obj) : string =
-        let cards = JsonValue.Parse(body.ToString())
-        //CardService.Shuffle 
-            
-
-        "get"
-        //CardService.Shuffle cards
+    [<HttpGet("shuffle")>]
+    member __.Shuffle() : Card[] =
+        CardService.Shuffle CardService.CreateDeck
+        
 
