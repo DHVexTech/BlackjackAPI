@@ -55,8 +55,6 @@ module CardService =
                 | value when countCard < deck.Length ->
                     resizedDeck.Add(value)
                 | _ -> ()
-            
-
 
             loopingDeck' (0, secondPartDeck)
             loopingDeck' (0, firstPartDeck)
