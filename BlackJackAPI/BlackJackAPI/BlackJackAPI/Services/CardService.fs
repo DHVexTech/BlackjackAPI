@@ -5,6 +5,26 @@ open BlackJackAPI.Enums
 open System
 
 module CardService =
+    
+    let SetSecondValueCard (nameCard : string) : int =
+        match nameCard with
+        | "Ace" -> 11
+        | _ -> 0
+        
+    let SetFirstValueCard (nameCard : string) : int =
+        match nameCard with
+        | "Ace" -> 1
+        | "Two" -> 2
+        | "Three" -> 3
+        | "Four" -> 4
+        | "Five" -> 5
+        | "Six" -> 6
+        | "Seven" -> 7
+        | "Eight" -> 8
+        | "Nine" -> 9
+        | "Ten" | "Jack" | "Queen" | "King" -> 10
+        | _ -> 0
+
     let CreateDeck : Card[] = 
         let names = Enum.GetNames(typeof<CardsNames>)
         let symbols = Enum.GetNames(typeof<CardsSymbols>)
@@ -14,8 +34,8 @@ module CardService =
             resizeArrayCards.Add {
                 Name = name
                 Symbol = symbol
-                FirstValue = 0
-                SecondValue = 0
+                FirstValue = SetFirstValueCard name
+                SecondValue = SetSecondValueCard name
             }
         
         let rec loopingNames' (countName : int) =
@@ -25,12 +45,14 @@ module CardService =
                 | value when countSymbol < symbols.Length -> 
                     CreateCard (value, name)
                     loopingSymbols' (countSymbol+1, name)
+                | _ -> ()
 
             match names.[countName] with
             | value when (countName+1) = names.Length -> loopingSymbols' (0, value)
             | value when countName < names.Length -> 
                 loopingSymbols' (0, value)
                 loopingNames' (countName+1)
+            | _ -> ()
                 
         let countName = 0
         loopingNames' (countName)
