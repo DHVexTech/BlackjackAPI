@@ -6,6 +6,7 @@ open Microsoft.Extensions.Logging
 open BlackJackAPI.Models
 open BlackJackAPI.Enums
 open BlackJackAPI.Services
+open FSharp.Data
 
 [<ApiController>]
 [<Route("card")>]
@@ -15,3 +16,9 @@ type CardController (logger : ILogger<CardController>) =
     [<HttpGet>]
     member __.Get() : Card[] =
         CardService.CreateDeck
+
+    [<HttpGet("shuffle")>]
+    member __.Shuffle() : Card[] =
+        CardService.Shuffle CardService.CreateDeck
+        
+
