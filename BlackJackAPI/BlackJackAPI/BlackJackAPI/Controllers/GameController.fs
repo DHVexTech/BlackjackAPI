@@ -8,10 +8,11 @@ open BlackJackAPI.Enums
 open BlackJackAPI.Services
 
 [<ApiController>]
-[<Route("card")>]
-type CardController (logger : ILogger<CardController>) =
+[<Route("game")>]
+type GameController (logger : ILogger<GameController>) =
     inherit ControllerBase()
 
     [<HttpGet>]
-    member __.Get() : Card[] =
-        CardService.CreateDeck
+    member __.Get() : Game =
+        GameService.CreatedGame
+

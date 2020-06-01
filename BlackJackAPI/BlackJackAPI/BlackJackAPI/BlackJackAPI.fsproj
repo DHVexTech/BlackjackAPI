@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
@@ -8,16 +8,16 @@
     <Compile Include="Enums\CardsNames.fs" />
     <Compile Include="Enums\CardsSymbols.fs" />
     <Compile Include="Models\CardModel.fs" />
+    <Compile Include="Models\GameModel.fs" />
     <Compile Include="Models\UserModel.fs" />
+    <Compile Include="Services\CardService.fs" />
+    <Compile Include="Services\GameService.fs" />
+    <Compile Include="Controllers\GameController.fs" />
     <Compile Include="Controllers\BaseController.fs" />
     <Compile Include="Controllers\CardController.fs" />
     <Compile Include="Controllers\UserController.fs" />
     <Compile Include="Startup.fs" />
     <Compile Include="Program.fs" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Services\" />
   </ItemGroup>
 
 </Project>
