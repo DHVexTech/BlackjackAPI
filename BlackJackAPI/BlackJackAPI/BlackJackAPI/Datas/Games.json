@@ -1,0 +1,25 @@
+﻿[
+  {
+    "id": "00ef34af-6e55-48b9-b5d5-e4d69283df8e",
+    "state": "Created",
+    "playerOneName": "Bob",
+    "playerOneHand": [],
+    "playerOneState": "",
+    "playerTwoName": "",
+    "playerTwoHand": [],
+    "playerTwoState": "",
+    "deck": []
+  },
+  {
+    "id": "11111111-6e55-48b9-b5d5-e4d69283df8e",
+    "state": "Created",
+    "playerOneName": "Jacob",
+    "playerOneHand": [],
+    "playerOneState": "",
+    "playerTwoName": "",
+    "playerTwoHand": [],
+    "playerTwoState": "",
+    "deck": []
+  }
+
+]

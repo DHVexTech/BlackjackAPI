@@ -7,9 +7,12 @@
   <ItemGroup>
     <Compile Include="Enums\CardsNames.fs" />
     <Compile Include="Enums\CardsSymbols.fs" />
+    <Compile Include="Models\TestPostModel.fs" />
     <Compile Include="Models\CardModel.fs" />
     <Compile Include="Models\GameModel.fs" />
     <Compile Include="Models\UserModel.fs" />
+    <Compile Include="Helpers\CardHelper.fs" />
+    <Compile Include="Helpers\GameHelper.fs" />
     <Compile Include="Services\CardService.fs" />
     <Compile Include="Services\GameService.fs" />
     <Compile Include="Controllers\GameController.fs" />
@@ -22,6 +25,8 @@
 
   <ItemGroup>
     <PackageReference Include="FSharp.Data" Version="3.3.3" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="Newtonsoft.Json.FSharp" Version="3.2.2" />
   </ItemGroup>
 
 </Project>

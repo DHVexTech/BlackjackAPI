@@ -1,26 +1,30 @@
 ﻿namespace BlackJackAPI.Services
 
 open BlackJackAPI.Models
+open BlackJackAPI.Helpers
 open BlackJackAPI.Enums
 open System
+open FSharp.Data
 
 module GameService =
-    let CreatedGame : Game =  
+    let CreatedGame(playerOne:string) : Game =  
         let hand = ResizeArray<Card>().ToArray()
         {
             Id = Guid.NewGuid().ToString()
             State = "Created"
-            PlayerOneName = ""
+            PlayerOneName = playerOne
             PlayerOneHand = hand
             PlayerOneState = ""
             PlayerTwoName = ""
             PlayerTwoHand = hand
             PlayerTwoState = ""
             Deck = hand
-            //Deck = CardService.Shuffle
-
         }
 
+        // write into json
+
+    let GetGames : TestPostModel[] = 
+        GameHelper.GetGames
 
     //match theGame with
 

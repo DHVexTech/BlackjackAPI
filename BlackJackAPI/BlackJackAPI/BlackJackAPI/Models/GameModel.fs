@@ -3,6 +3,7 @@
 open System
 open BlackJackAPI.Enums
 
+[<CLIMutable>]
 type Game =
     {
         Id : string
@@ -14,5 +15,4 @@ type Game =
         PlayerTwoHand: Card[]
         PlayerTwoState: string // Active / Stopped
         Deck: Card[]
-
     }
