@@ -1,1 +1,330 @@
-[{"Deck":[{"FirstValue":1,"Name":"Ace","SecondValue":11,"Symbol":"Heart"},{"FirstValue":10,"Name":"King","SecondValue":0,"Symbol":"Heart"},{"FirstValue":2,"Name":"Two","SecondValue":0,"Symbol":"Clubs"},{"FirstValue":10,"Name":"King","SecondValue":0,"Symbol":"Clubs"},{"FirstValue":1,"Name":"Ace","SecondValue":11,"Symbol":"Diamond"},{"FirstValue":8,"Name":"Eight","SecondValue":0,"Symbol":"Spades"},{"FirstValue":4,"Name":"Four","SecondValue":0,"Symbol":"Diamond"},{"FirstValue":2,"Name":"Two","SecondValue":0,"Symbol":"Diamond"},{"FirstValue":9,"Name":"Nine","SecondValue":0,"Symbol":"Diamond"},{"FirstValue":10,"Name":"Queen","SecondValue":0,"Symbol":"Heart"},{"FirstValue":8,"Name":"Eight","SecondValue":0,"Symbol":"Heart"},{"FirstValue":5,"Name":"Five","SecondValue":0,"Symbol":"Diamond"},{"FirstValue":5,"Name":"Five","SecondValue":0,"Symbol":"Heart"},{"FirstValue":3,"Name":"Three","SecondValue":0,"Symbol":"Heart"},{"FirstValue":6,"Name":"Six","SecondValue":0,"Symbol":"Heart"},{"FirstValue":10,"Name":"Jack","SecondValue":0,"Symbol":"Heart"},{"FirstValue":9,"Name":"Nine","SecondValue":0,"Symbol":"Heart"},{"FirstValue":10,"Name":"King","SecondValue":0,"Symbol":"Spades"},{"FirstValue":10,"Name":"Queen","SecondValue":0,"Symbol":"Diamond"},{"FirstValue":10,"Name":"Ten","SecondValue":0,"Symbol":"Heart"},{"FirstValue":7,"Name":"Seven","SecondValue":0,"Symbol":"Heart"},{"FirstValue":3,"Name":"Three","SecondValue":0,"Symbol":"Clubs"},{"FirstValue":2,"Name":"Two","SecondValue":0,"Symbol":"Heart"},{"FirstValue":4,"Name":"Four","SecondValue":0,"Symbol":"Clubs"},{"FirstValue":3,"Name":"Three","SecondValue":0,"Symbol":"Spades"},{"FirstValue":9,"Name":"Nine","SecondValue":0,"Symbol":"Clubs"},{"FirstValue":4,"Name":"Four","SecondValue":0,"Symbol":"Spades"},{"FirstValue":8,"Name":"Eight","SecondValue":0,"Symbol":"Diamond"},{"FirstValue":3,"Name":"Three","SecondValue":0,"Symbol":"Diamond"},{"FirstValue":10,"Name":"Queen","SecondValue":0,"Symbol":"Spades"},{"FirstValue":4,"Name":"Four","SecondValue":0,"Symbol":"Heart"},{"FirstValue":5,"Name":"Five","SecondValue":0,"Symbol":"Clubs"},{"FirstValue":9,"Name":"Nine","SecondValue":0,"Symbol":"Spades"},{"FirstValue":5,"Name":"Five","SecondValue":0,"Symbol":"Spades"},{"FirstValue":10,"Name":"Ten","SecondValue":0,"Symbol":"Clubs"},{"FirstValue":6,"Name":"Six","SecondValue":0,"Symbol":"Diamond"},{"FirstValue":1,"Name":"Ace","SecondValue":11,"Symbol":"Spades"},{"FirstValue":10,"Name":"Jack","SecondValue":0,"Symbol":"Spades"},{"FirstValue":8,"Name":"Eight","SecondValue":0,"Symbol":"Clubs"},{"FirstValue":10,"Name":"Ten","SecondValue":0,"Symbol":"Diamond"},{"FirstValue":10,"Name":"Jack","SecondValue":0,"Symbol":"Diamond"},{"FirstValue":10,"Name":"King","SecondValue":0,"Symbol":"Diamond"},{"FirstValue":6,"Name":"Six","SecondValue":0,"Symbol":"Clubs"},{"FirstValue":6,"Name":"Six","SecondValue":0,"Symbol":"Spades"},{"FirstValue":10,"Name":"Queen","SecondValue":0,"Symbol":"Clubs"},{"FirstValue":7,"Name":"Seven","SecondValue":0,"Symbol":"Spades"},{"FirstValue":10,"Name":"Jack","SecondValue":0,"Symbol":"Clubs"},{"FirstValue":1,"Name":"Ace","SecondValue":11,"Symbol":"Clubs"},{"FirstValue":7,"Name":"Seven","SecondValue":0,"Symbol":"Clubs"},{"FirstValue":7,"Name":"Seven","SecondValue":0,"Symbol":"Diamond"},{"FirstValue":10,"Name":"Ten","SecondValue":0,"Symbol":"Spades"},{"FirstValue":2,"Name":"Two","SecondValue":0,"Symbol":"Spades"}],"Id":"6a9aabc4-762d-4a3a-929b-29fed1a04e72","PlayerOneHand":[],"PlayerOneName":"Boub","PlayerOneScore":"null","PlayerOneState":"Play","PlayerTwoHand":[],"PlayerTwoName":"Allouette","PlayerTwoScore":"null","PlayerTwoState":"Wait","State":"Started"}]
+[
+  {
+    "Deck": [
+      {
+        "FirstValue": 1,
+        "Name": "Ace",
+        "SecondValue": 11,
+        "Symbol": "Diamond"
+      },
+      {
+        "FirstValue": 8,
+        "Name": "Eight",
+        "SecondValue": 0,
+        "Symbol": "Spades"
+      },
+      {
+        "FirstValue": 4,
+        "Name": "Four",
+        "SecondValue": 0,
+        "Symbol": "Diamond"
+      },
+      {
+        "FirstValue": 2,
+        "Name": "Two",
+        "SecondValue": 0,
+        "Symbol": "Diamond"
+      },
+      {
+        "FirstValue": 9,
+        "Name": "Nine",
+        "SecondValue": 0,
+        "Symbol": "Diamond"
+      },
+      {
+        "FirstValue": 10,
+        "Name": "Queen",
+        "SecondValue": 0,
+        "Symbol": "Heart"
+      },
+      {
+        "FirstValue": 8,
+        "Name": "Eight",
+        "SecondValue": 0,
+        "Symbol": "Heart"
+      },
+      {
+        "FirstValue": 5,
+        "Name": "Five",
+        "SecondValue": 0,
+        "Symbol": "Diamond"
+      },
+      {
+        "FirstValue": 5,
+        "Name": "Five",
+        "SecondValue": 0,
+        "Symbol": "Heart"
+      },
+      {
+        "FirstValue": 3,
+        "Name": "Three",
+        "SecondValue": 0,
+        "Symbol": "Heart"
+      },
+      {
+        "FirstValue": 6,
+        "Name": "Six",
+        "SecondValue": 0,
+        "Symbol": "Heart"
+      },
+      {
+        "FirstValue": 10,
+        "Name": "Jack",
+        "SecondValue": 0,
+        "Symbol": "Heart"
+      },
+      {
+        "FirstValue": 9,
+        "Name": "Nine",
+        "SecondValue": 0,
+        "Symbol": "Heart"
+      },
+      {
+        "FirstValue": 10,
+        "Name": "King",
+        "SecondValue": 0,
+        "Symbol": "Spades"
+      },
+      {
+        "FirstValue": 10,
+        "Name": "Queen",
+        "SecondValue": 0,
+        "Symbol": "Diamond"
+      },
+      {
+        "FirstValue": 10,
+        "Name": "Ten",
+        "SecondValue": 0,
+        "Symbol": "Heart"
+      },
+      {
+        "FirstValue": 7,
+        "Name": "Seven",
+        "SecondValue": 0,
+        "Symbol": "Heart"
+      },
+      {
+        "FirstValue": 3,
+        "Name": "Three",
+        "SecondValue": 0,
+        "Symbol": "Clubs"
+      },
+      {
+        "FirstValue": 2,
+        "Name": "Two",
+        "SecondValue": 0,
+        "Symbol": "Heart"
+      },
+      {
+        "FirstValue": 4,
+        "Name": "Four",
+        "SecondValue": 0,
+        "Symbol": "Clubs"
+      },
+      {
+        "FirstValue": 3,
+        "Name": "Three",
+        "SecondValue": 0,
+        "Symbol": "Spades"
+      },
+      {
+        "FirstValue": 9,
+        "Name": "Nine",
+        "SecondValue": 0,
+        "Symbol": "Clubs"
+      },
+      {
+        "FirstValue": 4,
+        "Name": "Four",
+        "SecondValue": 0,
+        "Symbol": "Spades"
+      },
+      {
+        "FirstValue": 8,
+        "Name": "Eight",
+        "SecondValue": 0,
+        "Symbol": "Diamond"
+      },
+      {
+        "FirstValue": 3,
+        "Name": "Three",
+        "SecondValue": 0,
+        "Symbol": "Diamond"
+      },
+      {
+        "FirstValue": 10,
+        "Name": "Queen",
+        "SecondValue": 0,
+        "Symbol": "Spades"
+      },
+      {
+        "FirstValue": 4,
+        "Name": "Four",
+        "SecondValue": 0,
+        "Symbol": "Heart"
+      },
+      {
+        "FirstValue": 5,
+        "Name": "Five",
+        "SecondValue": 0,
+        "Symbol": "Clubs"
+      },
+      {
+        "FirstValue": 9,
+        "Name": "Nine",
+        "SecondValue": 0,
+        "Symbol": "Spades"
+      },
+      {
+        "FirstValue": 5,
+        "Name": "Five",
+        "SecondValue": 0,
+        "Symbol": "Spades"
+      },
+      {
+        "FirstValue": 10,
+        "Name": "Ten",
+        "SecondValue": 0,
+        "Symbol": "Clubs"
+      },
+      {
+        "FirstValue": 6,
+        "Name": "Six",
+        "SecondValue": 0,
+        "Symbol": "Diamond"
+      },
+      {
+        "FirstValue": 1,
+        "Name": "Ace",
+        "SecondValue": 11,
+        "Symbol": "Spades"
+      },
+      {
+        "FirstValue": 10,
+        "Name": "Jack",
+        "SecondValue": 0,
+        "Symbol": "Spades"
+      },
+      {
+        "FirstValue": 8,
+        "Name": "Eight",
+        "SecondValue": 0,
+        "Symbol": "Clubs"
+      },
+      {
+        "FirstValue": 10,
+        "Name": "Ten",
+        "SecondValue": 0,
+        "Symbol": "Diamond"
+      },
+      {
+        "FirstValue": 10,
+        "Name": "Jack",
+        "SecondValue": 0,
+        "Symbol": "Diamond"
+      },
+      {
+        "FirstValue": 10,
+        "Name": "King",
+        "SecondValue": 0,
+        "Symbol": "Diamond"
+      },
+      {
+        "FirstValue": 6,
+        "Name": "Six",
+        "SecondValue": 0,
+        "Symbol": "Clubs"
+      },
+      {
+        "FirstValue": 6,
+        "Name": "Six",
+        "SecondValue": 0,
+        "Symbol": "Spades"
+      },
+      {
+        "FirstValue": 10,
+        "Name": "Queen",
+        "SecondValue": 0,
+        "Symbol": "Clubs"
+      },
+      {
+        "FirstValue": 7,
+        "Name": "Seven",
+        "SecondValue": 0,
+        "Symbol": "Spades"
+      },
+      {
+        "FirstValue": 10,
+        "Name": "Jack",
+        "SecondValue": 0,
+        "Symbol": "Clubs"
+      },
+      {
+        "FirstValue": 1,
+        "Name": "Ace",
+        "SecondValue": 11,
+        "Symbol": "Clubs"
+      },
+      {
+        "FirstValue": 7,
+        "Name": "Seven",
+        "SecondValue": 0,
+        "Symbol": "Clubs"
+      },
+      {
+        "FirstValue": 7,
+        "Name": "Seven",
+        "SecondValue": 0,
+        "Symbol": "Diamond"
+      },
+      {
+        "FirstValue": 10,
+        "Name": "Ten",
+        "SecondValue": 0,
+        "Symbol": "Spades"
+      },
+      {
+        "FirstValue": 2,
+        "Name": "Two",
+        "SecondValue": 0,
+        "Symbol": "Spades"
+      }
+    ],
+    "Id": "6a9aabc4-762d-4a3a-929b-29fed1a04e72",
+    "PlayerOneHand": [
+      {
+        "FirstValue": 2,
+        "Name": "Two",
+        "SecondValue": 0,
+        "Symbol": "Clubs"
+      },
+      {
+        "FirstValue": 10,
+        "Name": "King",
+        "SecondValue": 0,
+        "Symbol": "Clubs"
+      }
+    ],
+    "PlayerOneName": "Boub",
+    "PlayerOneScore": "null",
+    "PlayerOneState": "Play",
+    "PlayerTwoHand": [
+      {
+        "FirstValue": 1,
+        "Name": "Ace",
+        "SecondValue": 11,
+        "Symbol": "Heart"
+      },
+      {
+        "FirstValue": 10,
+        "Name": "King",
+        "SecondValue": 0,
+        "Symbol": "Heart"
+      }
+    ],
+    "PlayerTwoName": "Allouette",
+    "PlayerTwoScore": "null",
+    "PlayerTwoState": "Wait",
+    "State": "Started"
+  }
+]
