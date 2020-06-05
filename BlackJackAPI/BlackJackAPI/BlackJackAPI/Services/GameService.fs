@@ -23,7 +23,7 @@ module GameService =
 
         // write into json
 
-    let GetGames : TestPostModel[] = 
+    let GetGames : Game[] = 
         GameHelper.GetGames
 
     //match theGame with

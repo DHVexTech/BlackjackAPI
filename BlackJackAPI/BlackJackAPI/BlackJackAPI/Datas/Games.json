@@ -3,12 +3,63 @@
     "id": "00ef34af-6e55-48b9-b5d5-e4d69283df8e",
     "state": "Created",
     "playerOneName": "Bob",
-    "playerOneHand": [],
+    "playerOneHand": [
+      {
+        "name": "Nine",
+        "symbol": "Diamond",
+        "firstValue": 9,
+        "secondValue": 0
+      },
+      {
+        "name": "Three",
+        "symbol": "Diamond",
+        "firstValue": 3,
+        "secondValue": 0
+      }
+    ],
     "playerOneState": "",
     "playerTwoName": "",
-    "playerTwoHand": [],
+    "playerTwoHand": [
+      {
+        "name": "Nine",
+        "symbol": "Diamond",
+        "firstValue": 9,
+        "secondValue": 0
+      },
+      {
+        "name": "Three",
+        "symbol": "Diamond",
+        "firstValue": 3,
+        "secondValue": 0
+      }
+    ],
     "playerTwoState": "",
-    "deck": []
+    "deck": [
+      {
+        "name": "Nine",
+        "symbol": "Diamond",
+        "firstValue": 9,
+        "secondValue": 0
+      },
+      {
+        "name": "Three",
+        "symbol": "Diamond",
+        "firstValue": 3,
+        "secondValue": 0
+      },
+      {
+        "name": "Nine",
+        "symbol": "Diamond",
+        "firstValue": 9,
+        "secondValue": 0
+      },
+      {
+        "name": "Three",
+        "symbol": "Diamond",
+        "firstValue": 3,
+        "secondValue": 0
+      }
+    ]
   },
   {
     "id": "11111111-6e55-48b9-b5d5-e4d69283df8e",

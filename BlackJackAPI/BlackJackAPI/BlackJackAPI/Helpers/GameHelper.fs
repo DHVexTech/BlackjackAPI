@@ -2,36 +2,62 @@
 
 open FSharp.Data
 open BlackJackAPI.Models
-open FSharp.Data.JsonExtensions
-open System
 
-type gamesProvider = JsonProvider<"""[{"id": "00ef34af-6e55-48b9-b5d5-e4d69283df8e","state": "Created","playerOneName": "Bob","playerOneHand": [],"playerOneState": "","playerTwoName": "","playerTwoHand": [],"playerTwoState": "","deck": []}]""">
+type gamesProvider = JsonProvider<"""[{"id": "","state": "","playerOneName": "","playerOneHand": [],"playerOneState": "","playerTwoName": "","playerTwoHand": [],"playerTwoState": "","deck": []}]""">
 type gameProvider = JsonProvider<"""{"id": "","state": "","playerOneName": "","playerOneHand": [],"playerOneState": "","playerTwoName": "","playerTwoHand": [],"playerTwoState": "","deck": []}""">
 
 
 module GameHelper = 
-    let ObjToGameParser(value:JsonValue) : TestPostModel[] = 
-        let games = ResizeArray<TestPostModel>()
+    let ObjToGameParser(value:JsonValue) : Game[] = 
+        let games = ResizeArray<Game>()
         let game = gamesProvider.Parse(value.ToString())
+        let count = 0
 
+        let rec loopingGames' = fun (count:int) ->
+            match game with
+            | data -> 
+                let gameP = gameProvider.Parse(data.[count].ToString())
+                match gameP with
+                | info when (count+1) = data.Length ->
+                    let playerOne = CardHelper.ObjToCardParser(info.PlayerOneHand)
+                    let playerTwo = CardHelper.ObjToCardParser(info.PlayerTwoHand)
+                    let deck = CardHelper.ObjToCardParser(info.Deck)
 
-        match game with
-        | data -> 
-            let gameP = gameProvider.Parse(data.[0].ToString())
-            match gameP with
-            | info ->
-                //let playerOne = CardHelper.ObjToCardParser(info?PlayerOneHand)
-                //let playerTwo = CardHelper.ObjToCardParser(info?PlayerTwoHand)
-                //let Deck = CardHelper.ObjToCardParser(info?Deck)
+                    games.Add({
+                        Id = info.Id.ToString().Replace("\"", "")
+                        State = info.State.ToString().Replace("\"", "")
+                        PlayerOneName = info.PlayerOneName.ToString().Replace("\"", "")
+                        PlayerOneHand = playerOne
+                        PlayerOneState = info.PlayerOneState.ToString().Replace("\"", "")
+                        PlayerTwoName = info.PlayerTwoName.ToString().Replace("\"", "")
+                        PlayerTwoHand = playerTwo
+                        PlayerTwoState = info.PlayerTwoState.ToString().Replace("\"", "")
+                        Deck = deck
+                    })
+                | info when (count) < data.Length ->
+                    let playerOne = CardHelper.ObjToCardParser(info.PlayerOneHand)
+                    let playerTwo = CardHelper.ObjToCardParser(info.PlayerTwoHand)
+                    let deck = CardHelper.ObjToCardParser(info.Deck)
 
-                games.Add({
-                    Name = info.Id.ToString().Replace("\"", "")
-                })
+                    games.Add({
+                        Id = info.Id.ToString().Replace("\"", "")
+                        State = info.State.ToString().Replace("\"", "")
+                        PlayerOneName = info.PlayerOneName.ToString().Replace("\"", "")
+                        PlayerOneHand = playerOne
+                        PlayerOneState = info.PlayerOneState.ToString().Replace("\"", "")
+                        PlayerTwoName = info.PlayerTwoName.ToString().Replace("\"", "")
+                        PlayerTwoHand = playerTwo
+                        PlayerTwoState = info.PlayerTwoState.ToString().Replace("\"", "")
+                        Deck = deck
+                    })
+                    loopingGames'(count+1)
+                | _ -> printfn "Error while parsing Game Object"
 
+        loopingGames'(count)
         games.ToArray()
 
 
-    let GetGames : TestPostModel[] = 
+    let GetGames : Game[] = 
         let datasDirectory = __SOURCE_DIRECTORY__.Replace("Helpers", "")
         let value = JsonValue.Load(datasDirectory + "datas\Games.json")
         ObjToGameParser(value)
