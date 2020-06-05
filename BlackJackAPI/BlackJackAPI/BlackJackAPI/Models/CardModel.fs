@@ -1,12 +1,13 @@
 ﻿namespace BlackJackAPI.Models
 
-open System
-open BlackJackAPI.Enums
+open System.Runtime.Serialization
 
+[<CLIMutable>]
+[<DataContract>]
 type Card =
     {
-        Name: string
-        Symbol: string
-        FirstValue: int
-        SecondValue: int
+        [<DataMember>] mutable Name: string
+        [<DataMember>] mutable Symbol: string
+        [<DataMember>] mutable FirstValue: int
+        [<DataMember>] mutable SecondValue: int
     }
