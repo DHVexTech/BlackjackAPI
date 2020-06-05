@@ -9,7 +9,7 @@ open FSharp.Data
 module GameService =
     let CreatedGame(playerOne:string) : Game =  
         let hand = ResizeArray<Card>().ToArray()
-        {
+        let game = {
             Id = Guid.NewGuid().ToString()
             State = "Created"
             PlayerOneName = playerOne
@@ -20,14 +20,16 @@ module GameService =
             PlayerTwoState = ""
             Deck = hand
         }
+        let games = GameHelper.AddGameToGames(game)
+        game
 
         // write into json
 
     let GetGames : Game[] = 
-        GameHelper.GetGames
+        GameHelper.GetGames 0
 
     let GetGamesByUsername(username:string) : Game[] = 
-        let games = GameHelper.GetGames
+        let games = GameHelper.GetGames 0
         let userGames = ResizeArray<Game>()
         let count = 0
         let rec loopingGameFindUser' = fun (count:int) ->
@@ -44,7 +46,7 @@ module GameService =
 
 
     let RemoveGame(item:Game) : bool =
-        let games = GameHelper.GetGames
+        let games = GameHelper.GetGames 0
         let currentGames = ResizeArray<Game>()
         let rec loopingRemoveGame' = fun (count:int) ->
             match games.[count] with
@@ -54,23 +56,29 @@ module GameService =
             | game when count < games.Length && game.Id <> item.Id ->
                 currentGames.Add(game)
             | _ -> ignore()
-
-        currentGames.ToArray()
-        // write into json ()
+        
+        loopingRemoveGame'(0)
+        GameHelper.ObjToJson(currentGames.ToArray())
         true
 
     let JoinGame(item:Game) : Game = 
-        let games = GameHelper.GetGames
+        let games = GameHelper.GetGames 0
         let nullArray = ResizeArray<Card>().ToArray()
+        let currentGame = games.[0]
 
-        let rec loopingJoinGame'(count:int) : Game = 
+        let rec loopingJoinGame'(count:int) : Game =
             match games.[count] with
+            | game when (count+1) = games.Length && game.Id = item.Id ->
+                currentGame = game |> ignore
+                currentGame
             | game when count < games.Length && game.Id = item.Id ->
-                game
-            | game when count < games.Length && game.Id <> item.Id ->
+                currentGame = game |> ignore
+                currentGame
+            | game when count < games.Length && (count+1) < games.Length && game.Id <> item.Id ->
                 loopingJoinGame'(count+1)
+            | _ -> currentGame
  
-        let currentGame = loopingJoinGame'(0)
+        loopingJoinGame'(0) |> ignore
 
         match RemoveGame(item) with 
         | true -> 

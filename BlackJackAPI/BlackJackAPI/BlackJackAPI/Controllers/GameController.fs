@@ -17,8 +17,6 @@ type GameController (logger : ILogger<GameController>) =
         GameService.CreatedGame(item.PlayerOneName)
         //GameService.CreatedGame(item.PlayerOneName)
 
-
-
     [<HttpGet>]
     member __.GetGames() : Game[] =
         GameService.GetGames
@@ -30,6 +28,9 @@ type GameController (logger : ILogger<GameController>) =
     [<HttpPut("Join")>]
     member __.JoinGame(item:Game) : Game =
         GameService.JoinGame(item)
+
+
+
 
     //[<HttpGet("Start")>]
     //member __.StartGame(id:string) : Game =
