@@ -61,3 +61,19 @@ module GameHelper =
         let datasDirectory = __SOURCE_DIRECTORY__.Replace("Helpers", "")
         let value = JsonValue.Load(datasDirectory + "datas\Games.json")
         ObjToGameParser(value)
+
+    let AddGameToGames(gameEdited:Game) : bool =
+        let games = GetGames
+        let gamesCopy = ResizeArray<Game>()
+        let rec loopingGame' = fun (count:int) ->
+            match games.[count] with
+            | game when (count+1) = games.Length ->
+                gamesCopy.Add(game)
+            | game when count < games.Length ->
+                gamesCopy.Add(game)
+                loopingGame'(count+1)
+
+        loopingGame'(0)
+        gamesCopy.Add(gameEdited)
+        // Write into json
+        true

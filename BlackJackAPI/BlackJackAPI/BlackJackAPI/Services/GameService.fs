@@ -59,6 +59,39 @@ module GameService =
         // write into json ()
         true
 
+    let JoinGame(item:Game) : Game = 
+        let games = GameHelper.GetGames
+        let nullArray = ResizeArray<Card>().ToArray()
+
+        let rec loopingJoinGame'(count:int) : Game = 
+            match games.[count] with
+            | game when count < games.Length && game.Id = item.Id ->
+                game
+            | game when count < games.Length && game.Id <> item.Id ->
+                loopingJoinGame'(count+1)
+ 
+        let currentGame = loopingJoinGame'(0)
+
+        match RemoveGame(item) with 
+        | true -> 
+            let editedGame = {
+                Id = currentGame.Id
+                PlayerOneName = currentGame.PlayerOneName
+                PlayerTwoName = item.PlayerTwoName
+                PlayerOneHand = currentGame.PlayerOneHand
+                PlayerTwoHand = currentGame.PlayerTwoHand
+                PlayerOneState = "Play"
+                PlayerTwoState = "Wait"
+                Deck = CardService.Shuffle CardService.CreateDeck
+                State = "Started"
+            }
+            GameHelper.AddGameToGames(editedGame) |> ignore
+            editedGame
+        | false ->
+            item
+
+        
+
     //let id = 1
     //let State = Created
     // enum 2 joueurs
