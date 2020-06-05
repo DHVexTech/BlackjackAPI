@@ -23,10 +23,24 @@ module GameService =
 
         // write into json
 
-    let GetGames : TestPostModel[] = 
+    let GetGames : Game[] = 
         GameHelper.GetGames
 
-    //match theGame with
+    let GetGamesByUsername(username:string) : Game[] = 
+        let games = GameHelper.GetGames
+        let userGames = ResizeArray<Game>()
+        let count = 0
+        let rec loopingGameFindUser' = fun (count:int) ->
+            match games.[count] with 
+            | game when count < games.Length && (game.PlayerOneName = username || game.PlayerTwoName = username) ->
+                userGames.Add(game)
+                loopingGameFindUser'(count+1)
+            | game when (count+1) = games.Length && (game.PlayerOneName = username || game.PlayerTwoName = username) ->
+                userGames.Add(game)
+            | _ -> ignore()
+
+        loopingGameFindUser'(count)
+        userGames.ToArray()
 
     //let id = 1
     //let State = Created

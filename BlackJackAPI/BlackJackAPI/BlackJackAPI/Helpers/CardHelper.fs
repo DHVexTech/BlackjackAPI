@@ -2,22 +2,40 @@
 
 open BlackJackAPI.Models
 open FSharp.Data
-open FSharp.Data.JsonExtensions
+open FSharp.Data.Runtime.BaseTypes
+
+type CardsProvider = JsonProvider<"""[{"name": "","symbol": "","firstValue": 0,"secondValue": 0}]""">
+type CardProvider = JsonProvider<"""{"name": "","symbol": "","firstValue": 0,"secondValue": 0}""">
 
 module CardHelper = 
-    let ObjToCardParser(cards:JsonValue) : Card[] =
+    let ObjToCardParser(cards:IJsonDocument[]) : Card[] =
         let cardsArray = ResizeArray<Card>()
-        match cards with
-        | card ->
-            match card with
-            | info ->
+        let count = 0
+
+        let rec loopingCard' = fun (count:int) ->
+            let cardP = CardProvider.Parse(cards.[count].ToString())
+            match cardP with
+            |card when (count+1) = cards.Length ->
                 cardsArray.Add({
-                    Name = info?Name.ToString()
-                    Symbol = info?Symbol.ToString()
-                    FirstValue = info?FirstValue.AsInteger()
-                    SecondValue = info?SecondValue.AsInteger()
+                    Name = card.Name.ToString()
+                    Symbol = card.Symbol.ToString()
+                    FirstValue = card.FirstValue |> int
+                    SecondValue = card.SecondValue |> int
                 })
-        | _ -> printfn "failed parse Card"
+            | card when (count) < cards.Length  ->
+                cardsArray.Add({
+                    Name = card.Name.ToString()
+                    Symbol = card.Symbol.ToString()
+                    FirstValue = card.FirstValue |> int
+                    SecondValue = card.SecondValue |> int
+                })
+                loopingCard'(count+1)
+            | _ -> printfn "failed parse Card"
+
+        match cards.Length with
+        | x when x > 0 ->
+            loopingCard'(count)
+        | x -> ignore()
 
         cardsArray.ToArray()
         
