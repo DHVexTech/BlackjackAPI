@@ -15,6 +15,8 @@ module GameService =
             PlayerOneName = playerOne
             PlayerOneHand = hand
             PlayerOneState = ""
+            PlayerOneScore = ""
+            PlayerTwoScore = ""
             PlayerTwoName = ""
             PlayerTwoHand = hand
             PlayerTwoState = ""
@@ -25,7 +27,7 @@ module GameService =
 
         // write into json
 
-    let GetGames : Game[] = 
+    let GetGames(_:int) : Game[] = 
         GameHelper.GetGames 0
 
     let GetGamesByUsername(username:string) : Game[] = 
@@ -87,6 +89,8 @@ module GameService =
                 PlayerOneName = currentGame.PlayerOneName
                 PlayerTwoName = item.PlayerTwoName
                 PlayerOneHand = currentGame.PlayerOneHand
+                PlayerOneScore = currentGame.PlayerOneScore
+                PlayerTwoScore = currentGame.PlayerTwoScore
                 PlayerTwoHand = currentGame.PlayerTwoHand
                 PlayerOneState = "Play"
                 PlayerTwoState = "Wait"

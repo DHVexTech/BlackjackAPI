@@ -4,8 +4,8 @@ open BlackJackAPI.Models
 open FSharp.Data
 open FSharp.Data.Runtime.BaseTypes
 
-type CardsProvider = JsonProvider<"""[{"name": "","symbol": "","firstValue": 0,"secondValue": 0}]""">
-type CardProvider = JsonProvider<"""{"name": "","symbol": "","firstValue": 0,"secondValue": 0}""">
+type CardsProvider = JsonProvider<"""[{"Name": "","Symbol": "","FirstValue": 0,"SecondValue": 0}]""">
+type CardProvider = JsonProvider<"""{"Name": "","Symbol": "","FirstValue": 0,"SecondValue": 0}""">
 
 module CardHelper = 
     let ObjToCardParser(cards:IJsonDocument[]) : Card[] =

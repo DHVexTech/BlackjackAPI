@@ -19,7 +19,7 @@ type GameController (logger : ILogger<GameController>) =
 
     [<HttpGet>]
     member __.GetGames() : Game[] =
-        GameService.GetGames
+        GameService.GetGames 0
 
     [<HttpGet("{username}")>]
     member __.GetGamesByUsername(username:string) : Game[] =

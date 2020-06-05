@@ -13,8 +13,10 @@ type Game =
         [<DataMember>] mutable PlayerOneName: string
         [<DataMember>] mutable PlayerOneHand: Card[]
         [<DataMember>] mutable PlayerOneState: string // Active / Stopped
+        [<DataMember>] mutable PlayerOneScore: string // Active / Stopped
         [<DataMember>] mutable PlayerTwoName: string
         [<DataMember>] mutable PlayerTwoHand: Card[]
         [<DataMember>] mutable PlayerTwoState: string // Active / Stopped
+        [<DataMember>] mutable PlayerTwoScore: string // Active / Stopped
         [<DataMember>] mutable Deck: Card[]
     }

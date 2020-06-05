@@ -5,8 +5,8 @@ open BlackJackAPI.Models
 open System.IO
 open System.Runtime.Serialization.Json
 
-type gamesProvider = JsonProvider<"""[{"Id": "","State": "","PlayerOneName": "","PlayerOneHand": [],"PlayerOneState": "","PlayerTwoName": "","PlayerTwoHand": [],"PlayerTwoState": "","Deck": []}]""">
-type gameProvider = JsonProvider<"""{"Id": "","State": "","PlayerOneName": "","PlayerOneHand": [],"PlayerOneState": "","PlayerTwoName": "","PlayerTwoHand": [],"PlayerTwoState": "","Deck": []}""">
+type gamesProvider = JsonProvider<"""[{"Id": "","State": "","PlayerOneName": "", "PlayerOneScore": "", "PlayerTwoScore": "","PlayerOneHand": [],"PlayerOneState": "","PlayerTwoName": "","PlayerTwoHand": [],"PlayerTwoState": "","Deck": []}]""">
+type gameProvider = JsonProvider<"""{"Id": "","State": "","PlayerOneName": "","PlayerOneHand": [], "PlayerOneScore": "", "PlayerTwoScore": "", "PlayerOneState": "","PlayerTwoName": "","PlayerTwoHand": [],"PlayerTwoState": "","Deck": []}""">
 
 
 module GameHelper = 
@@ -32,9 +32,11 @@ module GameHelper =
                             PlayerOneName = info.PlayerOneName.ToString().Replace("\"", "")
                             PlayerOneHand = playerOne
                             PlayerOneState = info.PlayerOneState.ToString().Replace("\"", "")
+                            PlayerOneScore = info.PlayerTwoState.ToString().Replace("\"", "")
                             PlayerTwoName = info.PlayerTwoName.ToString().Replace("\"", "")
                             PlayerTwoHand = playerTwo
                             PlayerTwoState = info.PlayerTwoState.ToString().Replace("\"", "")
+                            PlayerTwoScore = info.PlayerTwoState.ToString().Replace("\"", "")
                             Deck = deck
                         }
                         games.Add(actualGame)
@@ -50,9 +52,11 @@ module GameHelper =
                             PlayerOneName = info.PlayerOneName.ToString().Replace("\"", "")
                             PlayerOneHand = playerOne
                             PlayerOneState = info.PlayerOneState.ToString().Replace("\"", "")
+                            PlayerOneScore = info.PlayerTwoScore.ToString().Replace("\"", "")
                             PlayerTwoName = info.PlayerTwoName.ToString().Replace("\"", "")
                             PlayerTwoHand = playerTwo
                             PlayerTwoState = info.PlayerTwoState.ToString().Replace("\"", "")
+                            PlayerTwoScore = info.PlayerTwoScore.ToString().Replace("\"", "")
                             Deck = deck
                         })
                         loopingGames'(count+1)
