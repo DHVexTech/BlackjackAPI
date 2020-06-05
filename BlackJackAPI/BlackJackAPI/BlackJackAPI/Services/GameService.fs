@@ -42,6 +42,23 @@ module GameService =
         loopingGameFindUser'(count)
         userGames.ToArray()
 
+
+    let RemoveGame(item:Game) : bool =
+        let games = GameHelper.GetGames
+        let currentGames = ResizeArray<Game>()
+        let rec loopingRemoveGame' = fun (count:int) ->
+            match games.[count] with
+            | game when count < games.Length && game.Id <> item.Id ->
+                currentGames.Add(game)
+                loopingRemoveGame'(count+1)
+            | game when count < games.Length && game.Id <> item.Id ->
+                currentGames.Add(game)
+            | _ -> ignore()
+
+        currentGames.ToArray()
+        // write into json ()
+        true
+
     //let id = 1
     //let State = Created
     // enum 2 joueurs
