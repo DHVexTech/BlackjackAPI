@@ -17,15 +17,15 @@ module CardHelper =
             match cardP with
             |card when (count+1) = cards.Length ->
                 cardsArray.Add({
-                    Name = card.Name.ToString()
-                    Symbol = card.Symbol.ToString()
+                    Name = card.Name.ToString().Replace("\"", "")
+                    Symbol = card.Symbol.ToString().Replace("\"", "")
                     FirstValue = card.FirstValue |> int
                     SecondValue = card.SecondValue |> int
                 })
             | card when (count) < cards.Length  ->
                 cardsArray.Add({
-                    Name = card.Name.ToString()
-                    Symbol = card.Symbol.ToString()
+                    Name = card.Name.ToString().Replace("\"", "")
+                    Symbol = card.Symbol.ToString().Replace("\"", "")
                     FirstValue = card.FirstValue |> int
                     SecondValue = card.SecondValue |> int
                 })
