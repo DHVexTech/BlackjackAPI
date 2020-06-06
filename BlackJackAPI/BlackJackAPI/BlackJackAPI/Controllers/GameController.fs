@@ -29,6 +29,9 @@ type GameController (logger : ILogger<GameController>) =
     member __.JoinGame(item:Game) : Game =
         GameService.JoinGame(item)
 
+    [<HttpGet("Draw/{id}")>]
+    member __.Draw(id:string) : Game =
+        GameService.DrawCard(id)
 
 
 

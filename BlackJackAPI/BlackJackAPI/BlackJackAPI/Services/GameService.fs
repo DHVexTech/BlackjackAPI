@@ -49,7 +49,7 @@ module GameService =
 
     let RemoveGame(item:Game) : bool =
         let games = GameHelper.GetGames 0
-        let currentGames = ResizeArray<Game>()
+        let mutable currentGames = ResizeArray<Game>()
         let rec loopingRemoveGame' = fun (count:int) ->
             match games.[count] with
             | game when count < games.Length && game.Id <> item.Id ->
@@ -65,22 +65,15 @@ module GameService =
 
     let JoinGame(item:Game) : Game = 
         let games = GameHelper.GetGames 0
-        let nullArray = ResizeArray<Card>().ToArray()
-        let currentGame = games.[0]
 
         let rec loopingJoinGame'(count:int) : Game =
             match games.[count] with
-            | game when (count+1) = games.Length && game.Id = item.Id ->
-                currentGame = game |> ignore
-                currentGame
             | game when count < games.Length && game.Id = item.Id ->
-                currentGame = game |> ignore
-                currentGame
-            | game when count < games.Length && (count+1) < games.Length && game.Id <> item.Id ->
+                game
+            | game when count < games.Length && game.Id <> item.Id ->
                 loopingJoinGame'(count+1)
-            | _ -> currentGame
  
-        loopingJoinGame'(0) |> ignore
+        let currentGame = loopingJoinGame' 0
 
         match RemoveGame(item) with 
         | true -> 
@@ -93,9 +86,9 @@ module GameService =
                 PlayerTwoScore = currentGame.PlayerTwoScore
                 PlayerTwoHand = currentGame.PlayerTwoHand
                 PlayerOneState = "Play"
-                PlayerTwoState = "Wait"
+                PlayerTwoState = "Play"
                 Deck = CardService.Shuffle CardService.CreateDeck
-                State = "Started"
+                State = "PlayerOneTurn"
             }
             GameHelper.AddGameToGames(editedGame) |> ignore
             editedGame
@@ -103,6 +96,144 @@ module GameService =
             item
 
         
+
+    let DrawCard(id:string) : Game =
+    // Get CurrentGame
+        let games = GameHelper.GetGames 0
+        
+        let rec loopingJoinGame'(count:int) : Game =
+            match games.[count] with
+            | game when count < games.Length && game.Id = id ->
+                game
+            | game when count < games.Length && game.Id <> id ->
+                loopingJoinGame'(count+1)
+         
+        let currentGame = loopingJoinGame' 0
+        RemoveGame(currentGame)
+
+        // Get Card
+        let deck = ResizeArray<Card>()
+
+        let rec loopingCard'(count:int) =
+            match currentGame.Deck.[count] with
+            | card when count+1 = currentGame.Deck.Length ->
+                deck.Add(card)
+            | card when count < currentGame.Deck.Length ->
+                deck.Add(card)
+                loopingCard'(count+1)
+            | _ -> ignore()
+            
+        loopingCard' 1 |> ignore 
+        let cardToAdd = currentGame.Deck.[0]
+
+
+       
+        // Add Card To player Hand
+
+        match currentGame.State with
+        | "PlayerOneTurn" ->
+            let handCards = ResizeArray<Card>()
+            
+            let rec loopingPlayerOneHand'(count:int) =
+                match currentGame.PlayerOneHand.[count] with
+                | card when count+1 = currentGame.PlayerOneHand.Length ->
+                    handCards.Add(card)
+                | card when count < currentGame.PlayerOneHand.Length ->
+                    handCards.Add(card)
+                    loopingPlayerOneHand'(count+1)
+                | _ -> ignore()
+
+            match currentGame.PlayerOneHand.Length with
+            | result when result <> 0 ->
+                loopingPlayerOneHand' 0
+            | _ -> ()
+
+            handCards.Add(cardToAdd)
+
+            let getState(_:int) : string =
+                match currentGame with
+                    | game when game.PlayerOneState = "Stop" && game.PlayerTwoState = "Stop" ->
+                        "Ended"
+                    | game when game.PlayerTwoState = "Play" ->
+                        "PlayerTwoTurn"
+                    | game when game.PlayerTwoState = "Stop" ->
+                        "PlayerOneTurn"
+
+            let state = getState 0
+
+            let newGame = {
+                Id = currentGame.Id
+                PlayerOneName = currentGame.PlayerOneName
+                PlayerTwoName = currentGame.PlayerTwoName
+                PlayerOneHand = handCards.ToArray()
+                PlayerOneScore = currentGame.PlayerOneScore
+                PlayerTwoScore = currentGame.PlayerTwoScore
+                PlayerTwoHand = currentGame.PlayerTwoHand
+                PlayerOneState = currentGame.PlayerOneState
+                PlayerTwoState = currentGame.PlayerTwoState
+                Deck = deck.ToArray()
+                State = state
+            }
+
+            GameHelper.AddGameToGames newGame
+
+            newGame
+
+        | "PlayerTwoTurn" ->
+
+            let handCards = ResizeArray<Card>()
+            
+            let rec loopingPlayerTwoHand'(count:int) =
+                match currentGame.PlayerTwoHand.[count] with
+                | card when count+1 = currentGame.PlayerTwoHand.Length ->
+                    handCards.Add(card)
+                | card when count < currentGame.PlayerTwoHand.Length ->
+                    handCards.Add(card)
+                    loopingPlayerTwoHand'(count+1)
+                | _ -> ignore()
+
+            match currentGame.PlayerTwoHand.Length with
+            | result when result <> 0 ->
+                loopingPlayerTwoHand' 0
+            | _ -> ()
+
+            handCards.Add(cardToAdd)
+
+            let getState(_:int) : string =
+                match currentGame with
+                    | game when game.PlayerOneState = "Stop" && game.PlayerTwoState = "Stop" ->
+                        "Ended"
+                    | game when game.PlayerOneState = "Play" ->
+                        "PlayerOneTurn"
+                    | game when game.PlayerOneState = "Stop" ->
+                        "PlayerTwoTurn"
+
+            let state = getState 0
+
+            let newGame = {
+                Id = currentGame.Id
+                PlayerOneName = currentGame.PlayerOneName
+                PlayerTwoName = currentGame.PlayerTwoName
+                PlayerOneHand = currentGame.PlayerOneHand
+                PlayerOneScore = currentGame.PlayerOneScore
+                PlayerTwoScore = currentGame.PlayerTwoScore
+                PlayerTwoHand = handCards.ToArray()
+                PlayerOneState = "Play"
+                PlayerTwoState = "Play"
+                Deck = deck.ToArray()
+                State = state
+            }
+
+            GameHelper.AddGameToGames newGame
+
+            newGame
+
+        | _ -> currentGame
+
+
+
+
+
     //let CountScore(item:Game) : Game =
     //    let mutable playerOneScoreNumber = 0
     //    let rec loopingCardsPlayerOne'(count:int) =

@@ -32,11 +32,11 @@ module GameHelper =
                             PlayerOneName = info.PlayerOneName.ToString().Replace("\"", "")
                             PlayerOneHand = playerOne
                             PlayerOneState = info.PlayerOneState.ToString().Replace("\"", "")
-                            PlayerOneScore = info.PlayerTwoState.ToString().Replace("\"", "")
+                            PlayerOneScore = info.PlayerOneScore.ToString().Replace("\"", "")
                             PlayerTwoName = info.PlayerTwoName.ToString().Replace("\"", "")
                             PlayerTwoHand = playerTwo
                             PlayerTwoState = info.PlayerTwoState.ToString().Replace("\"", "")
-                            PlayerTwoScore = info.PlayerTwoState.ToString().Replace("\"", "")
+                            PlayerTwoScore = info.PlayerTwoScore.ToString().Replace("\"", "")
                             Deck = deck
                         }
                         games.Add(actualGame)
@@ -52,7 +52,7 @@ module GameHelper =
                             PlayerOneName = info.PlayerOneName.ToString().Replace("\"", "")
                             PlayerOneHand = playerOne
                             PlayerOneState = info.PlayerOneState.ToString().Replace("\"", "")
-                            PlayerOneScore = info.PlayerTwoScore.ToString().Replace("\"", "")
+                            PlayerOneScore = info.PlayerOneScore.ToString().Replace("\"", "")
                             PlayerTwoName = info.PlayerTwoName.ToString().Replace("\"", "")
                             PlayerTwoHand = playerTwo
                             PlayerTwoState = info.PlayerTwoState.ToString().Replace("\"", "")
