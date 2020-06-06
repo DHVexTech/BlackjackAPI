@@ -95,7 +95,57 @@ module GameService =
         | false ->
             item
 
+    let getAceNumber(cardsAce:Card[]) : int =
+        let rec loopingCard'(count:int) : int =
+            match cardsAce.[count] with
+            | card when card.Name = "Ace" && count+1 = cardsAce.Length ->
+                1
+            | card when card.Name = "Ace" && count < cardsAce.Length ->
+                1 + loopingCard' (count+1)
+            | card when card.Name <> "Ace" && count+1 = cardsAce.Length ->
+                0
+            | card when card.Name <> "Ace" && count < cardsAce.Length ->
+                loopingCard' (count+1)
+
+        loopingCard' 0
+
+    let getScoreWithoutAce(cards:Card[]) : int =
+        let rec loopingCard'(count:int) : int =
+            match cards.[count] with
+            | card when card.Name <> "Ace" && count+1 = cards.Length ->
+                card.FirstValue
+            | card when card.Name <> "Ace" && count < cards.Length ->
+                card.FirstValue + loopingCard' (count+1)
+            | card when card.Name = "Ace" && count+1 = cards.Length ->
+                0
+            | card when card.Name = "Ace" && count < cards.Length ->
+                loopingCard' (count+1)
+
+        loopingCard' 0
+
+    let addAceToScore(score:int) : int =
+        match score with
+        | value when value > 10 ->
+            score+1
+        | value when value <= 10 ->
+            score+11
+
+    let CountScore(cards:Card[]) : int =
+        let aceNumber = getAceNumber cards
+        let scoreWithoutAce = getScoreWithoutAce cards
         
+        let rec loopingAddAce'(count:int) : int =
+            match aceNumber with
+            | value when aceNumber = 0 ->
+                scoreWithoutAce
+            | value when count+1 = aceNumber ->
+                addAceToScore scoreWithoutAce
+            | value when count < aceNumber ->
+                loopingAddAce' (count+1) + addAceToScore scoreWithoutAce
+                
+
+        loopingAddAce' 0
+
 
     let DrawCard(id:string) : Game =
     // Get CurrentGame
@@ -125,10 +175,6 @@ module GameService =
             
         loopingCard' 1 |> ignore 
         let cardToAdd = currentGame.Deck.[0]
-
-
-       
-        // Add Card To player Hand
 
         match currentGame.State with
         | "PlayerOneTurn" ->
@@ -160,14 +206,14 @@ module GameService =
                             "PlayerTwoTurn"
                         | game when game.PlayerTwoState = "Stop" ->
                             "PlayerOneTurn"
-
                 let state = getState 0
+                let score = CountScore (handCards.ToArray())
                 let newGame = {
                     Id = currentGame.Id
                     PlayerOneName = currentGame.PlayerOneName
                     PlayerTwoName = currentGame.PlayerTwoName
                     PlayerOneHand = handCards.ToArray()
-                    PlayerOneScore = currentGame.PlayerOneScore
+                    PlayerOneScore = score.ToString()
                     PlayerTwoScore = currentGame.PlayerTwoScore
                     PlayerTwoHand = currentGame.PlayerTwoHand
                     PlayerOneState = currentGame.PlayerOneState
@@ -209,13 +255,14 @@ module GameService =
                             "PlayerTwoTurn"
 
                 let state = getState 0
+                let score = CountScore (handCards.ToArray())
                 let newGame = {
                     Id = currentGame.Id
                     PlayerOneName = currentGame.PlayerOneName
                     PlayerTwoName = currentGame.PlayerTwoName
                     PlayerOneHand = currentGame.PlayerOneHand
                     PlayerOneScore = currentGame.PlayerOneScore
-                    PlayerTwoScore = currentGame.PlayerTwoScore
+                    PlayerTwoScore = score.ToString()
                     PlayerTwoHand = handCards.ToArray()
                     PlayerOneState = currentGame.PlayerOneState
                     PlayerTwoState = currentGame.PlayerTwoState
@@ -226,6 +273,51 @@ module GameService =
                 newGame
             | _ -> currentGame
         | _ -> currentGame
+
+    let setWinner(game:Game) : Game =
+        match game with
+        | game when (game.PlayerOneScore.AsInteger() <= 21 && game.PlayerTwoScore.AsInteger() <= 21 && game.PlayerOneScore.AsInteger() > game.PlayerTwoScore.AsInteger()) || (game.PlayerOneScore.AsInteger() <= 21 && game.PlayerTwoScore.AsInteger() > 21) ->
+            {
+                Id = game.Id
+                PlayerOneName = game.PlayerOneName
+                PlayerTwoName = game.PlayerTwoName
+                PlayerOneHand = game.PlayerOneHand
+                PlayerOneScore = game.PlayerOneScore
+                PlayerTwoScore = game.PlayerTwoScore
+                PlayerTwoHand = game.PlayerTwoHand
+                PlayerOneState = game.PlayerOneState
+                PlayerTwoState = game.PlayerTwoState
+                Deck = game.Deck
+                State = "PlayerOneWon"
+            }
+        | game when (game.PlayerTwoScore.AsInteger() <= 21 && game.PlayerOneScore.AsInteger() <= 21 && game.PlayerTwoScore.AsInteger() > game.PlayerOneScore.AsInteger()) || (game.PlayerTwoScore.AsInteger() <= 21 && game.PlayerOneScore.AsInteger() > 21)->
+            {
+                Id = game.Id
+                PlayerOneName = game.PlayerOneName
+                PlayerTwoName = game.PlayerTwoName
+                PlayerOneHand = game.PlayerOneHand
+                PlayerOneScore = game.PlayerOneScore
+                PlayerTwoScore = game.PlayerTwoScore
+                PlayerTwoHand = game.PlayerTwoHand
+                PlayerOneState = game.PlayerOneState
+                PlayerTwoState = game.PlayerTwoState
+                Deck = game.Deck
+                State = "PlayerTwoWon"
+            }
+        | game when (game.PlayerOneScore.AsInteger() > 21 && game.PlayerTwoScore.AsInteger() > 21) || (game.PlayerOneScore.AsInteger() = game.PlayerTwoScore.AsInteger()) ->
+            {
+                Id = game.Id
+                PlayerOneName = game.PlayerOneName
+                PlayerTwoName = game.PlayerTwoName
+                PlayerOneHand = game.PlayerOneHand
+                PlayerOneScore = game.PlayerOneScore
+                PlayerTwoScore = game.PlayerTwoScore
+                PlayerTwoHand = game.PlayerTwoHand
+                PlayerOneState = game.PlayerOneState
+                PlayerTwoState = game.PlayerTwoState
+                Deck = game.Deck
+                State = "Equality"
+            }
 
 
     let Stop(id:string) : Game =
@@ -275,7 +367,7 @@ module GameService =
                     State = "Ended"
                 }
                 GameHelper.AddGameToGames newGame
-                newGame
+                setWinner newGame
         | state when state = "PlayerTwoTurn" ->
             match currentGame.PlayerOneState with
             | "Play" ->
@@ -309,25 +401,5 @@ module GameService =
                     State = "Ended"
                 }
                 GameHelper.AddGameToGames newGame
-                newGame
+                setWinner newGame
 
-    //let CountScore(item:Game) : Game =
-    //    let mutable playerOneScoreNumber = 0
-    //    let rec loopingCardsPlayerOne'(count:int) =
-    //        match item.PlayerOneHand.[count] with
-    //        | card when count < item.PlayerOneHand.Length ->
-    //            playerOneScoreNumber = playerOneScoreNumber + card.FirstValue
-    //            match card.SecondValue with
-    //            | value when value <> 0 ->
-    //            | _ -> ignore()
-    //        | card when (count+1) = item.PlayerOneHand.Length ->
-    //        | _ -> ignore()
-    //        ""
-        
-    //    let rec loopingCardsPlayerTwo'(count:int) : string =
-    //        ""
-        
-    //    let playerOneScore = loopingCardsPlayerOne'(0)
-    //    let playerTwoScore = loopingCardsPlayerTwo'(0)
-
-    //    item
