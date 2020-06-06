@@ -23,15 +23,20 @@ type GameController (logger : ILogger<GameController>) =
 
     [<HttpGet("{username}")>]
     member __.GetGamesByUsername(username:string) : Game[] =
-        GameService.GetGamesByUsername(username)
+        GameService.GetGamesByUsername username
 
     [<HttpPut("Join")>]
     member __.JoinGame(item:Game) : Game =
-        GameService.JoinGame(item)
+        GameService.JoinGame item
 
     [<HttpGet("Draw/{id}")>]
     member __.Draw(id:string) : Game =
-        GameService.DrawCard(id)
+        GameService.DrawCard id
+
+    [<HttpGet("Stop/{id}")>]
+    member __.Stop(id:string) : Game =
+        GameService.Stop id
+
 
 
 
